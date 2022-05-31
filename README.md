@@ -1,6 +1,6 @@
 # INSTRUCTURES
 
-Instructures is a generative art project released on released on fxhash on 22 February 2022.
+Instructures is a generative art project released on fxhash on 22 February 2022.
 
 View all 475 outputs of Instructures on [fxhash](https://www.fxhash.xyz/generative/slug/instructures).
 
