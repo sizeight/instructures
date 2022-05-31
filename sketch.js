@@ -265,6 +265,9 @@ function setup() {
 
 function setupTraits() {
   const paletteOpts = [
+    /*
+    "Earth",
+    */
     "Fifteen", "Fifteen",
     "SIZEIGHT", "SIZEIGHT",
     "Herge", "Herge",
@@ -1132,6 +1135,10 @@ function startKeypressListener() {
     decreaseFrameCount(1);
     draw();
   };
+  const btn = document.getElementById('reload');
+  btn.onclick = () => {
+    location.reload();
+  }
   document.addEventListener("keydown", logKey);
   function logKey(e) {
     if (!e.repeat) { // Only once per keypress
