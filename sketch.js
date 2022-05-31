@@ -1135,10 +1135,51 @@ function startKeypressListener() {
     decreaseFrameCount(1);
     draw();
   };
-  const btn = document.getElementById('reload');
-  btn.onclick = () => {
+  const reloadBtn = document.getElementById('reload');
+  reloadBtn.onclick = () => {
     location.reload();
   }
+  const zoomBtn = document.getElementById('zoom');
+  zoomBtn.onclick = () => {
+    toggleZoomLevel("ZOOMIN");
+  }
+  const rotateAntiBtn = document.getElementById('rotate-anti');
+  rotateAntiBtn.onclick = () => {
+    draw();
+  }
+  const rotateClockwiseBtn = document.getElementById('rotate-clockwise');
+  rotateClockwiseBtn.onclick = () => {
+    decreaseFrameCount(2);
+    draw();
+  }
+
+  const upBtn = document.getElementById('up');
+  upBtn.onclick = () => {
+    decreaseFrameCount(1);
+    traits.vOffset = traits.vOffset > -9 ? traits.vOffset - 0.5 : traits.vOffset;
+    draw();
+  }
+  const downBtn = document.getElementById('down');
+  downBtn.onclick = () => {
+    traits.vOffset = traits.vOffset < 9 ? traits.vOffset + 0.5 : traits.vOffset;
+    decreaseFrameCount(1);
+    draw();
+  }
+  const leftBtn = document.getElementById('left');
+  leftBtn.onclick = () => {
+    decreaseFrameCount(1);
+    traits.hOffset = traits.hOffset > -9 ? traits.hOffset - 0.5 : traits.hOffset;
+    draw();
+  }
+  const rightBtn = document.getElementById('right');
+  rightBtn.onclick = () => {
+    decreaseFrameCount(1);
+    traits.hOffset = traits.hOffset < 9 ? traits.hOffset + 0.5 : traits.hOffset;
+    draw();
+  }
+
+
+
   document.addEventListener("keydown", logKey);
   function logKey(e) {
     if (!e.repeat) { // Only once per keypress
@@ -1185,7 +1226,6 @@ function startKeypressListener() {
         decreaseFrameCount(1);
         traits.hOffset = traits.hOffset < 9 ? traits.hOffset + 0.5 : traits.hOffset;
         draw();
-
       } else if (e.code === "KeyW") {
         decreaseFrameCount(1);
         traits.vOffset = traits.vOffset > -9 ? traits.vOffset - 0.5 : traits.vOffset;
