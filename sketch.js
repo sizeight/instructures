@@ -265,10 +265,7 @@ function setup() {
 
 function setupTraits() {
   const paletteOpts = [
-    /*
-    "Earth",
-    */
-    Fifteen", "Fifteen",
+    "Fifteen", "Fifteen",
     "SIZEIGHT", "SIZEIGHT",
     "Herge", "Herge",
     "McLaughlin", "McLaughlin",
