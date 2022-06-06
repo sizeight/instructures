@@ -35,6 +35,8 @@ canvas {
   position: absolute;
   top: 0;
   left: 0;
+
+  cursor: none; /* hide mouse cursor */
 }
 
 * {
@@ -50,7 +52,6 @@ div {
   align-items: center;
   justify-content: center;
   display: flex;
-  padding: 20px;
   font-family: monospace;
   flex: 2;
 }
@@ -64,6 +65,12 @@ div {
   }
   .big {
     display: none;
+  }
+  .small>div {
+    margin: 10px;
+    padding: 20px 0;
+    background: #222;
+    border-radius: 6px;
   }
 }
 

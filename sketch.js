@@ -1131,7 +1131,7 @@ function decreaseFrameCount(steps) {
 
 function startKeypressListener() {
   document.onclick = () => {
-    cancelOverlays();
+    // cancelOverlays();
     decreaseFrameCount(1);
     draw();
   };
@@ -1176,6 +1176,23 @@ function startKeypressListener() {
     decreaseFrameCount(1);
     traits.hOffset = traits.hOffset < 9 ? traits.hOffset + 0.5 : traits.hOffset;
     draw();
+  }
+
+  const helpBtn = document.getElementById('help');
+  helpBtn.onclick = () => {
+    toggleHelp();
+  }
+  const featBtn = document.getElementById('features');
+  featBtn.onclick = () => {
+    toggleAbout();
+  }
+  const instrBtn = document.getElementById('instructions');
+  instrBtn.onclick = () => {
+    toggleInstructions();
+  }
+  const resetBtn = document.getElementById('reset');
+  resetBtn.onclick = () => {
+    toggleReset();
   }
 
 
