@@ -76,6 +76,7 @@ canvas {
 .small > div {
   display: flex;
   flex-grow: 2;
+  justify-content: center;S
 }
 .small > div > div {
   align-items: center;
