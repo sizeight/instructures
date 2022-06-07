@@ -18,6 +18,7 @@ let showMeta = true;
 let showInstructions = false;
 let showHelp = false;
 let showAbout = false;
+let showInfo = false;
 let firstDrawComplete = false;
 let traits = {};
 let initialTraits = {};
@@ -847,8 +848,49 @@ function draw() {
     "[H]elp",
     "[Esc] Cancel menu"
   ];
+
   if (showHelp) {
     drawOverlay(helpTxt);
+  }
+
+  const infoTxt = [
+    "ARTIST STATEMENT",
+    "----------------",
+    "",
+    "Instructures is a computer program that explores the endless",
+    "and diverse outcomes when a minimal, straightforward set of",
+    "instructions are followed to build structures out of cubes.",
+    "",
+    "Each time the program executes, a random signature is",
+    "generated. The program accepts this signature as an input",
+    "and outputs a corresponding artwork using a determinstic",
+    "generative algorithm. Using the signature, the algorithm",
+    "generates 4 to 8 instructions to build a structure out of",
+    'cubes, for example "Stack 4 cubes on top of each other",',
+    '"Place 7 cubes to the left/right of any other cube" or',
+    '"Add rouned corners". The signature is displayed bottom',
+    "left on each artwork, and a unique signature will always",
+    "generate the same output.",
+    "",
+    "Even though the program is focused on generating unique",
+    "structures, the additional variations in scale, composition,",
+    "colour, viewing angle and drawing style create an even wider",
+    "array of generative outcomes. Some outputs are recognisable",
+    "as three-dimensional isometric drawings whilst others are",
+    "more abstract. The unique artworks are also meant to be",
+    "used as points of departure for creating new artworks using",
+    "methods of drawing, painting, print making, sculpting etc.",
+    "My aim with Instructures is to strike a balance between",
+    "traditional art and the more technical nature of computers",
+    "and programming art by blending visual cues from both",
+    "disciplines. My hope is that the works can be appreciated",
+    "by audiences from both of these worlds.",
+    "",
+    '"The idea becomes a machine that makes the art."',
+    "   — Sol Lewitt, 1967",
+  ];
+  if (showInfo) {
+    drawOverlay(infoTxt);
   }
 
   // Features
@@ -1035,6 +1077,7 @@ function toggleReset() {
   showMeta = true;
   showInstructions = false;
   showHelp = false;
+  showInfo = false;
   showAbout = false;
   canvasSize = 0;
   gridUtils.createCanvas();
@@ -1098,6 +1141,7 @@ function toggleInstructions() {
   showHelp = false;
   showAbout = false;
   showInstructions = !showInstructions;
+  showInfo = false;
   decreaseFrameCount(1);
   draw();
 }
@@ -1106,6 +1150,7 @@ function toggleHelp() {
   showInstructions = false;
   showAbout = false;
   showHelp = !showHelp;
+  showInfo = false;
   decreaseFrameCount(1);
   draw();
 }
@@ -1114,6 +1159,16 @@ function toggleAbout() {
   showInstructions = false;
   showHelp = false;
   showAbout = !showAbout;
+  showInfo = false;
+  decreaseFrameCount(1);
+  draw();
+}
+
+function toggleInfo() {
+  showInstructions = false;
+  showHelp = false;
+  showAbout = false;
+  showInfo = !showInfo;
   decreaseFrameCount(1);
   draw();
 }
@@ -1122,6 +1177,7 @@ function cancelOverlays() {
   showInstructions = false;
   showHelp = false;
   showAbout = false;
+  showInfo = false;
 }
 
 function decreaseFrameCount(steps) {
@@ -1194,6 +1250,10 @@ function startKeypressListener() {
   resetBtn.onclick = () => {
     toggleReset();
   }
+  const infoBtn = document.getElementById('info');
+  infoBtn.onclick = () => {
+    toggleInfo();
+  }
 
 
 
@@ -1228,10 +1288,13 @@ function startKeypressListener() {
         toggleReset();
       } else if (e.code === "KeyF") {
         toggleAbout();
-      } else if (e.code === "KeyP") {
+      } else if (e.code === "Enter") {
+        toggleInfo();
+      }
+      /*else if (e.code === "KeyP") {
         canvasSize = (canvasSize + 1) % 5;
         resizeCanvas();
-      } else if (e.code === "Escape") {
+      }*/ else if (e.code === "Escape") {
         cancelOverlays();
         decreaseFrameCount(1);
         draw();
