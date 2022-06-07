@@ -856,7 +856,6 @@ function draw() {
   const infoTxt = [
     "ARTIST STATEMENT",
     "----------------",
-    "",
     "Instructures is a computer program that explores the endless",
     "and diverse outcomes when a minimal, straightforward set of",
     "instructions are followed to build structures out of cubes.",
