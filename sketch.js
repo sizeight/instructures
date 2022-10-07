@@ -393,10 +393,10 @@ function setupTraits() {
     }
   }
 
-  // Framed
-  traits.framed = false;
+  // Outlined
+  traits.outline = false;
   if (fxrand() > 0.5) { // 50% chance
-    traits.framed = true;
+    traits.outline = true;
   }
 
   // Transparent
@@ -408,7 +408,7 @@ function setupTraits() {
   }
 
   // Colors
-  traits.colors = getColors(traits.palette, traits.style, traits.darkSide, traits.framed, traits.transparent);
+  traits.colors = getColors(traits.palette, traits.style, traits.darkSide, traits.outline, traits.transparent);
 
   // Generate the structure
   baseMatrix = gridUtils.getNewEmptyMatrix(traits.dimSize, traits.dimSize, traits.dimSize);
@@ -912,7 +912,7 @@ function draw() {
   const bWidth = traits.borderWidths[traits.borderType].w;
   const bHeight = traits.borderWidths[traits.borderType].h;
   gridUtils.fillBorder(traits.colors.border, bWidth, bHeight);
-  if (traits.borderType !== 0 && traits.framed) {
+  if (traits.borderType !== 0 && traits.outline) {
     gridUtils.strokeBorder(traits.colors.stroke, bWidth, bHeight, traits.lineWidth);
   }
 
@@ -1048,19 +1048,21 @@ function resizeCanvas() {
   if (canvasSize === 0) {
     // Responsive;
     gridUtils.createCanvas();
+    console.log('Responsive');
   } else if (canvasSize === 1) {
-    // 2362 x 2362 (20 x 20cm 300dpi)
+    console.log('2362 x 2362 (20 x 20cm 300dpi)');
     gridUtils.createCanvas(2362, 2362);
   } else if (canvasSize === 2) {
-    // 3780 x 3780 (32 x 32cm 300dpi)
+    console.log('3780 x 3780 (32 x 32cm 300dpi)');
     gridUtils.createCanvas(3780, 3780);
-    // 4724 x 4724 (40 x 40cm 300dpi)
-    // gridUtils.createCanvas(4724, 4724);
   } else if (canvasSize === 3) {
-    // 5120 x 2880 (HD Landscape)
-    gridUtils.createCanvas(5120, 2880);
+    console.log('4724 x 4724 (40 x 40cm 300dpi)');
+    gridUtils.createCanvas(4724, 4724);
   } else if (canvasSize === 4) {
-    // 2880 x 5120 (HD Portrait)
+    console.log('5120 x 2880 (HD Landscape)');
+    gridUtils.createCanvas(5120, 2880);
+  } else if (canvasSize === 5) {
+    console.log('2880 x 5120 (HD Portrait)');
     gridUtils.createCanvas(2880, 5120);
   }
   // Recalc for acurate positioning
@@ -1112,8 +1114,9 @@ function toggleBorder() {
   draw();
 }
 
-function toggleFramed() {
-  traits.framed = !traits.framed;
+function toggleOutline() {
+  // Toggle outline
+  traits.outline = !traits.outline;
   decreaseFrameCount(1);
   draw();
 }
@@ -1269,9 +1272,9 @@ function startKeypressListener() {
       } else if (e.code === "KeyB") {
         cancelOverlays();
         toggleBorder();
-      } else if (e.code === "KeyN") {
+      } else if (e.code === "KeyO") {
         cancelOverlays();
-        toggleFramed();
+        toggleOutline();
       } else if (e.code === "KeyG") {
         cancelOverlays();
         toggleRegError();
@@ -1289,11 +1292,10 @@ function startKeypressListener() {
         toggleAbout();
       } else if (e.code === "Enter") {
         toggleInfo();
-      }
-      /*else if (e.code === "KeyP") {
-        canvasSize = (canvasSize + 1) % 5;
+      } else if (e.code === "KeyP") {
+        canvasSize = (canvasSize + 1) % 6;
         resizeCanvas();
-      }*/ else if (e.code === "Escape") {
+      } else if (e.code === "Escape") {
         cancelOverlays();
         decreaseFrameCount(1);
         draw();
@@ -1420,7 +1422,7 @@ function executeStep({ matrix, stepName, cubeCount, xMin, xMax, yMin, yMax, zMin
   return matrix;
 }
 
-function getColors(palette, style, darkSide = false, framed = false, transparent = false) {
+function getColors(palette, style, darkSide = false, outline = false, transparent = false) {
   let selectedBackground = palette.background;
   if (palette.backgrounds !== undefined) {
     let randIdx = Math.floor(fxrand() * palette.backgrounds.length);
@@ -1651,11 +1653,11 @@ function getColors(palette, style, darkSide = false, framed = false, transparent
     meta = background;
     metaAlt = c1;
     border = c1;
-    if (!framed) {
+    if (!outline) {
       meta =
         palettes.contrastRatio(border, background) > 1.5 ? background : stroke;
       metaAlt = palettes.contrastRatio(background, c1) > 1.5 ? c1 : stroke;
-    } else if (framed) {
+    } else if (outline) {
       // Cool little flip trick if contrast not great
       meta = palettes.contrastRatio(border, stroke) > 1.5 ? stroke : background;
       metaAlt =
